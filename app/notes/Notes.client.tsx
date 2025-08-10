@@ -16,7 +16,7 @@ const NotesPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, isLoading, isError, isSuccess } = useQuery({
+  const { data, isSuccess } = useQuery({
     queryKey: ["notes", searchQuery, currentPage],
     queryFn: () =>
       fetchNotes({ search: searchQuery, page: currentPage, perPage: 12 }),
