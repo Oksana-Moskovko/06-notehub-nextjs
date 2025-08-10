@@ -11,8 +11,16 @@ import SearchBox from "../../components/SearchBox/SearchBox";
 import Pagination from "../../components/Pagination/Pagination";
 import Modal from "../../components/Modal/Modal";
 import NoteForm from "../../components/NoteForm/NoteForm";
+import { Note } from "@/types/note";
 
-const NotesPage = () => {
+type NotesPageProps = {
+  initialData: {
+    notes: Note[];
+    totalPages: number;
+  };
+};
+
+const NotesPage = ({ initialData }: NotesPageProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -21,8 +29,9 @@ const NotesPage = () => {
     queryFn: () =>
       fetchNotes({ search: searchQuery, page: currentPage, perPage: 12 }),
     placeholderData: keepPreviousData,
+    initialData,
   });
-  console.log("Fetched data:", data);
+  // console.log("Fetched data:", data);
 
   const updateSearchQuery = useDebouncedCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,9 +40,8 @@ const NotesPage = () => {
     },
     300
   );
-
   const notes = data?.notes ?? [];
-  console.log(notes);
+  // console.log(notes);
 
   const totalPages = data?.totalPages ?? 0;
   const [isModalOpen, setIsModalOpen] = useState(false);
