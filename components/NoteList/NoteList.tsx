@@ -23,7 +23,7 @@ export default function NoteList({ notes }: NoteListProps) {
     },
   });
 
-  if (!notes.length) return null;
+  // if (!notes.length) return null;
 
   return (
     <ul className={css.list}>
